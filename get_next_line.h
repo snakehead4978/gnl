@@ -6,7 +6,7 @@
 /*   By: snek <snek@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 18:35:07 by snek              #+#    #+#             */
-/*   Updated: 2023/11/16 20:58:59 by snek             ###   ########.fr       */
+/*   Updated: 2023/11/18 21:54:51 by snek             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # include <stdlib.h>
 # include <unistd.h>
 # include <sys/types.h>
+# include <stdio.h>
 
 typedef struct s_clist
 {
@@ -24,7 +25,8 @@ typedef struct s_clist
 }	t_clist;
 
 char *get_next_line(int fd);
-
+char	*ft_stcpy(char *str, char *a, int n, int check);
+int	ft_stlenchec(char *a, ssize_t *check, int ck);
 
 
 #endif
