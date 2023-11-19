@@ -6,7 +6,7 @@
 /*   By: snek <snek@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 18:36:57 by snek              #+#    #+#             */
-/*   Updated: 2023/11/18 21:57:02 by snek             ###   ########.fr       */
+/*   Updated: 2023/11/19 17:33:26 by snek             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ char	*ft_stcpy(char *str, char *a, int n, int check)
 		new[i] = 0;
 		return (new);
 	}
-	i = ft_stlen(str);
+	i = ft_stlenchec(str, 0, 1);
 	new = malloc(sizeof(char) * (i + 1));
 	if (!new)
 		return (ft_freegnl(str, 0));
@@ -44,7 +44,14 @@ char	*ft_stcat(char *a, char *b)
 	int		j;
 	char	*new;
 
-	new = malloc(sizeof(char) * (ft_stlen(a) + ft_stlen(b) + 1));
+	if (!a)
+	{
+		a = malloc(sizeof(char) * 1);
+		if (!a)
+			return (ft_freegnl(b, 0));
+		a[0] = 0;
+	}
+	new = malloc(sizeof(char) * (ft_stlenchec(a, 0, 1) + ft_stlenchec(b, 0, 1) + 1));
 	if (!new)
 		return (ft_freegnl(a, b));
 	i = -1;
@@ -76,5 +83,13 @@ int	ft_stlenchec(char *a, ssize_t *check, int ck)
 			*check = 0;
 		a++;
 	}
+	return (0);
+}
+
+char	*ft_freegnl(char *a, char *b)
+{
+	free(a);
+	if (b)
+		free(b);
 	return (0);
 }
