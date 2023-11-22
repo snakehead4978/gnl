@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line_utils.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: snek <snek@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: jla-chon <jla-chon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 18:36:57 by snek              #+#    #+#             */
-/*   Updated: 2023/11/19 17:33:26 by snek             ###   ########.fr       */
+/*   Updated: 2023/11/22 15:57:55 by jla-chon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,11 +31,11 @@ char	*ft_stcpy(char *str, char *a, int n, int check)
 	i = ft_stlenchec(str, 0, 1);
 	new = malloc(sizeof(char) * (i + 1));
 	if (!new)
-		return (ft_freegnl(str, 0));
+		return (0);
 	new[i] = 0;
 	while (i-- > 0)
 		new[i] = str[i];
-	return (ft_stcat(new, a));
+	return (ft_stcat(a, new));
 }
 
 char	*ft_stcat(char *a, char *b)
@@ -51,7 +51,8 @@ char	*ft_stcat(char *a, char *b)
 			return (ft_freegnl(b, 0));
 		a[0] = 0;
 	}
-	new = malloc(sizeof(char) * (ft_stlenchec(a, 0, 1) + ft_stlenchec(b, 0, 1) + 1));
+	new = malloc(sizeof(char) * (ft_stlenchec(a, 0, 1) + ft_stlenchec(b, 0, 1)
+				+ 1));
 	if (!new)
 		return (ft_freegnl(a, b));
 	i = -1;
@@ -79,7 +80,7 @@ int	ft_stlenchec(char *a, ssize_t *check, int ck)
 	}
 	while (*a)
 	{
-		if (*a == '\n' || *a == EOF)
+		if (*a == '\n')
 			*check = 0;
 		a++;
 	}
