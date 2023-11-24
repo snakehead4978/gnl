@@ -6,11 +6,13 @@
 /*   By: jla-chon <jla-chon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 18:36:57 by snek              #+#    #+#             */
-/*   Updated: 2023/11/22 15:57:55 by jla-chon         ###   ########.fr       */
+/*   Updated: 2023/11/24 17:23:43 by jla-chon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
+
+extern int fl;
 
 char	*ft_stcpy(char *str, char *a, int n, int check)
 {
@@ -21,6 +23,8 @@ char	*ft_stcpy(char *str, char *a, int n, int check)
 	{
 		i = -1;
 		new = malloc(sizeof(char) * (n + 1));
+		// if (fl++ == 2274)
+		// 	printf("MALLOCCPY1\n");
 		if (!new)
 			return (0);
 		while (++i < n)
@@ -30,8 +34,10 @@ char	*ft_stcpy(char *str, char *a, int n, int check)
 	}
 	i = ft_stlenchec(str, 0, 1);
 	new = malloc(sizeof(char) * (i + 1));
+	// if (fl++ == 2274)
+	// 	printf("MALLOCCPY2\n");
 	if (!new)
-		return (0);
+		return (ft_freegnl(&a, 0));
 	new[i] = 0;
 	while (i-- > 0)
 		new[i] = str[i];
@@ -47,14 +53,18 @@ char	*ft_stcat(char *a, char *b)
 	if (!a)
 	{
 		a = malloc(sizeof(char) * 1);
+		// if (fl++ == 2274)
+		// 	printf("MALLOCCAT1\n");
 		if (!a)
-			return (ft_freegnl(b, 0));
+			return (ft_freegnl(&b, 0));
 		a[0] = 0;
 	}
 	new = malloc(sizeof(char) * (ft_stlenchec(a, 0, 1) + ft_stlenchec(b, 0, 1)
 				+ 1));
+	// if (fl++ == 2274)	
+	// 	printf("MALLOCCAT2\n");
 	if (!new)
-		return (ft_freegnl(a, b));
+		return (ft_freegnl(&a, b));
 	i = -1;
 	j = 0;
 	while (a[++i])
@@ -62,8 +72,7 @@ char	*ft_stcat(char *a, char *b)
 	while (b[j])
 		new[i++] = b[j++];
 	new[i] = 0;
-	free(a);
-	free(b);
+	ft_freegnl(&a, b);
 	return (new);
 }
 
@@ -87,10 +96,30 @@ int	ft_stlenchec(char *a, ssize_t *check, int ck)
 	return (0);
 }
 
-char	*ft_freegnl(char *a, char *b)
+char	*ft_freegnl(char **a, char *b)
 {
-	free(a);
+	// printf("%s freed\n", *a);
+	free(*a);
+	*a = 0;
 	if (b)
+	{
+		// printf("%s freed\n", b);
 		free(b);
+		b = 0;
+	}
+	return (0);
+}
+
+char	*ft_freemlc(char **a, char *b)
+{
+	// printf("%s freed\n", *a);
+	free(*a);
+	*a = 0;
+	if (b)
+	{
+		// printf("%s freed\n", b);
+		free(b);
+		b = 0;
+	}
 	return (0);
 }
